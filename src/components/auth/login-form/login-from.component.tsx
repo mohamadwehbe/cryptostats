@@ -1,16 +1,22 @@
 import { Button, TextField, Link as MuiLink } from '@mui/material';
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useLoginMutation } from '../../../apis/auth.api';
+import { useAppDispatch } from '../../../app/hooks';
+import { User } from '../../../models/User';
+import { setAuthState } from '../../../slices/auth.slice';
 
 const LoginForm: React.FC = () => {
-    const [email, setEmail] = useState('');
+    const [username, setUsername] = useState('');
     const [emailErrored, setEmailErrored] = useState(false);
-
     const [password, setPassword] = useState('');
     const [passwordErrored, setPasswordErrored] = useState(false);
+    const [login] = useLoginMutation();
+    const dispatch = useAppDispatch();
+    const navigate = useNavigate();
 
-    const handleLogin = () => {
-        if (!email)
+    const handleLogin = async () => {
+        if (!username)
             setEmailErrored(true)
         else
             setEmailErrored(false)
@@ -18,6 +24,13 @@ const LoginForm: React.FC = () => {
             setPasswordErrored(true)
         else
             setPasswordErrored(false)
+        try {
+            const response = (await login({ username, password })) as { data: User };
+            dispatch(setAuthState({ user: response.data }))
+            navigate('/');
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     return (
@@ -31,8 +44,8 @@ const LoginForm: React.FC = () => {
                     required
                     error={emailErrored}
                     helperText={emailErrored && "Please Entter a valid Email."}
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
                 />
                 <TextField
                     label="Password"
