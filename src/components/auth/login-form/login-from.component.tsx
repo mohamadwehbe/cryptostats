@@ -26,6 +26,7 @@ const LoginForm: React.FC = () => {
             setPasswordErrored(false)
         try {
             const response = (await login({ username, password })) as { data: User };
+            localStorage.setItem("accessToken", response.data.accessToken)
             dispatch(setAuthState({ user: response.data }))
             navigate('/');
         } catch (error) {

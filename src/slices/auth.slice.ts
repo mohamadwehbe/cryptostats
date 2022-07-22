@@ -3,7 +3,8 @@ import { RootState } from "../app/store";
 import { User } from "../models/User";
 
 interface AuthState {
-    user?: User
+    user?: User,
+    accessToken?: string,
 }
 
 const slice = createSlice({
@@ -11,7 +12,8 @@ const slice = createSlice({
     initialState: {} as AuthState,
     reducers: {
         setAuthState: (state, { payload: { user } }: PayloadAction<AuthState>) => {
-            state.user = user
+            state.user = user;
+            state.accessToken = user?.accessToken;
         }
     }
 })

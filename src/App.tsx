@@ -11,9 +11,11 @@ const darkTheme = createTheme({
 
 function App() {
   return (
+    <div className="dark:bg-gray-800 dark:text-gray-200">
     <ThemeProvider theme={darkTheme}>
       <Routes/>
     </ThemeProvider>
+    </div>
   );
 }
 
