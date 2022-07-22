@@ -5,13 +5,13 @@ import { CreateUserRequest } from '../dto/create-user-request.dto'
 export const usersApi = createApi({
     reducerPath: "usersApi",
     baseQuery: fetchBaseQuery({
-        baseUrl: 'http://localhost:3030/auth/',
+        baseUrl: '/auth',
         mode: 'cors',
     }),
     endpoints: (build) => ({
         createUser: build.mutation<User, CreateUserRequest>({
             query: (createUserRequest) => ({
-                url: 'signup',
+                url: '/signup',
                 method: 'POST',
                 body: createUserRequest,
             }),

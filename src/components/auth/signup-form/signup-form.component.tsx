@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { useCreateUserMutation } from '../../../apis/users.api';
 
 const SignupForm: React.FC = () => {
-    const [email, setEmail] = useState('');
+    const [username, setUsername] = useState('');
     const [emailErrored, setEmailErrored] = useState(false);
 
     const [password, setPassword] = useState('');
@@ -13,7 +13,7 @@ const SignupForm: React.FC = () => {
     const [createUser] = useCreateUserMutation();
 
     const handleSignUp = async () => {
-        if (!email)
+        if (!username)
             setEmailErrored(true)
         else
             setEmailErrored(false)
@@ -21,7 +21,7 @@ const SignupForm: React.FC = () => {
             setPasswordErrored(true)
         else
             setPasswordErrored(false)
-        await createUser({ email, password })
+        await createUser({ username, password })
     }
 
     return (
@@ -35,8 +35,8 @@ const SignupForm: React.FC = () => {
                     required
                     error={emailErrored}
                     helperText={emailErrored && "Please Entter a valid Email."}
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
                 />
                 <TextField
                     label="Password"
