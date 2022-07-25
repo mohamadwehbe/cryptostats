@@ -1,13 +1,13 @@
 import { Paper, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useGetExpensesQuery } from '../../apis/expenses.api';
 
 const ExpensesTable: React.FC = () => {
     const data = useGetExpensesQuery(undefined).data;
 
     return (
-        <div className='grid justify-center items-center pt-20'>
-            <h1 className='grid justify-center mb-4'>Expenses</h1>
+        <div className='grid justify-center items-center'>
+            <h1 className='grid justify-center mb-4'>Cryptostats</h1>
             <TableContainer component={Paper}>
                 <TableHead>
                     <TableRow>
@@ -28,8 +28,8 @@ const ExpensesTable: React.FC = () => {
                                     {d.name}
                                 </TableCell>
                                 <TableCell align='left'>{d.amount}</TableCell>
-                                <TableCell align='left'>{d.typeId == 1 ? "Buy" : "Sell"}</TableCell>
-                                <TableCell align='left'>{d.statusId == 1 ? "In Progress" : "Completed"}</TableCell>
+                                <TableCell align='left'>{d.typeId === 1 ? "Buy" : "Sell"}</TableCell>
+                                <TableCell align='left'>{d.statusId === 1 ? "In Progress" : "Completed"}</TableCell>
                             </TableRow>
                         ))
                     }
