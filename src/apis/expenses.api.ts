@@ -30,6 +30,13 @@ export const expensesApi = createApi({
                 body: createExpenseRequest,
             })
         }),
+        updateExpense: build.mutation<any, { id: string, post: CreateExpenseRequest }>({
+            query: ({ post, id }) => ({
+                url: `/${id}`,
+                method: 'PATCH',
+                body: post,
+            })
+        }),
         deleteExpense: build.mutation({
             query: (id) => ({
                 url: `/${id}`,
@@ -87,7 +94,7 @@ export const typesApi = createApi({
     }),
 });
 
-export const { useGetExpensesQuery, useAddExpenseMutation, useDeleteExpenseMutation } = expensesApi;
+export const { useGetExpensesQuery, useAddExpenseMutation, useUpdateExpenseMutation, useDeleteExpenseMutation } = expensesApi;
 
 export const { useGetStatusesQuery } = statusesApi;
 
