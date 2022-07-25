@@ -6,7 +6,7 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import { useAddExpenseMutation, useGetStatusesQuery, useGetTypesQuery } from '../../apis/expenses.api';
 
-const AddExpense: React.FC = () => {
+const AddExpense: React.FC<{ setModify: (modify: boolean) => void, modify: boolean }> = (props) => {
 
     const statuses = useGetStatusesQuery(undefined).data;
     const types = useGetTypesQuery(undefined).data;
@@ -19,6 +19,7 @@ const AddExpense: React.FC = () => {
     const addExpense = async () => {
         try {
             await createExpense({ name, amount, typeId, statusId });
+            props.setModify(!props.modify)
         } catch (error) {
             console.log(error)
         }
@@ -80,4 +81,4 @@ const AddExpense: React.FC = () => {
     )
 }
 
-export default AddExpense;
+export { AddExpense };

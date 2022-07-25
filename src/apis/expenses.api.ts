@@ -24,13 +24,17 @@ export const expensesApi = createApi({
             }),
         }),
         addExpense: build.mutation<any, CreateExpenseRequest>({
-            query(createExpenseRequest) {
-                return {
-                    url: '/',
-                    method: 'POST',
-                    body: createExpenseRequest,
-                }
-            }
+            query: (createExpenseRequest) => ({
+                url: '/',
+                method: 'POST',
+                body: createExpenseRequest,
+            })
+        }),
+        deleteExpense: build.mutation({
+            query: (id) => ({
+                url: `/${id}`,
+                method: 'DELETE',
+            })
         })
     }),
 });
@@ -83,9 +87,7 @@ export const typesApi = createApi({
     }),
 });
 
-export const { useGetExpensesQuery } = expensesApi;
-
-export const { useAddExpenseMutation } = expensesApi;
+export const { useGetExpensesQuery, useAddExpenseMutation, useDeleteExpenseMutation } = expensesApi;
 
 export const { useGetStatusesQuery } = statusesApi;
 
