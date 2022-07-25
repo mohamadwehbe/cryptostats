@@ -2,9 +2,7 @@ import { Button, TextField, Link as MuiLink } from '@mui/material';
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import { useLoginMutation } from '../../../apis/auth.api';
-import { useAppDispatch } from '../../../app/hooks';
 import { User } from '../../../models/User';
-import { setAuthState } from '../../../slices/auth.slice';
 
 const LoginForm: React.FC = () => {
     const [username, setUsername] = useState('');
@@ -12,9 +10,7 @@ const LoginForm: React.FC = () => {
     const [password, setPassword] = useState('');
     const [passwordErrored, setPasswordErrored] = useState(false);
     const [login] = useLoginMutation();
-    const dispatch = useAppDispatch();
     const navigate = useNavigate();
-
     const handleLogin = async () => {
         if (!username)
             setEmailErrored(true)
@@ -27,7 +23,6 @@ const LoginForm: React.FC = () => {
         try {
             const response = (await login({ username, password })) as { data: User };
             localStorage.setItem("accessToken", response.data.accessToken)
-            dispatch(setAuthState({ user: response.data }))
             navigate('/');
         } catch (error) {
             console.log(error)

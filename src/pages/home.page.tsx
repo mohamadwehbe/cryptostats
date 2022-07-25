@@ -1,4 +1,6 @@
+import { Button } from '@mui/material';
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom';
 import { AddExpense } from '../components/expenses-forms/add-expense-form.component';
 import { ExpensesTable } from '../components/expenses-table/expenses-table.component';
 
@@ -10,6 +12,7 @@ const HomePage: React.FC = () => {
     const [amount, setAmount] = useState<number | string>("");
     const [statusId, setStatusId] = useState<number | string>("");
     const [typeId, setTypeId] = useState<number | string>("");
+    const navigate = useNavigate();
 
     return (
         <div className='flex justify-center items-center flex-col h-screen gap-10'>
@@ -35,7 +38,10 @@ const HomePage: React.FC = () => {
                 statusId={statusId}
                 setTypeId={setTypeId}
                 typeId={typeId} />
-        </div>
+            <Button variant='contained' onClick={() => { localStorage.clear(); navigate('/login') }}>
+                <span className='p-1'>Logout</span>
+            </Button>
+        </div >
     )
 }
 

@@ -30,6 +30,7 @@ const AddExpense: React.FC<{
 
         const statuses = useGetStatusesQuery(undefined).data;
         const types = useGetTypesQuery(undefined).data;
+        
         const [createExpense] = useAddExpenseMutation();
         const [updateExpense] = useUpdateExpenseMutation();
 

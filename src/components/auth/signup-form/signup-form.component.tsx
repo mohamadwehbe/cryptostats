@@ -3,9 +3,7 @@ import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import { useLoginMutation } from '../../../apis/auth.api';
 import { useCreateUserMutation } from '../../../apis/users.api';
-import { useAppDispatch } from '../../../app/hooks';
 import { User } from '../../../models/User';
-import { setAuthState } from '../../../slices/auth.slice';
 
 const SignupForm: React.FC = () => {
     const [username, setUsername] = useState('');
@@ -14,7 +12,6 @@ const SignupForm: React.FC = () => {
     const [passwordErrored, setPasswordErrored] = useState(false);
     const [createUser] = useCreateUserMutation();
     const [login] = useLoginMutation();
-    const dispatch = useAppDispatch();
     const navigate = useNavigate();
 
     const handleSignUp = async () => {
@@ -29,7 +26,7 @@ const SignupForm: React.FC = () => {
         try {
             await createUser({ username, password })
             const response = (await login({ username, password })) as { data: User };
-            dispatch(setAuthState({ user: response.data }))
+            localStorage.setItem("accessToken", response.data.accessToken);
             navigate('/');
         } catch (error) {
             console.log(error)

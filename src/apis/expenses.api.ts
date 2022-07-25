@@ -8,7 +8,7 @@ export const expensesApi = createApi({
         baseUrl: '/expenses',
         mode: 'cors',
         prepareHeaders: (headers, { getState }) => {
-            const token = (getState() as RootState).auth.accessToken
+            const token = localStorage.getItem("accessToken");
             // If we have a token set in state, let's assume that we should be passing it.
             if (token) {
                 headers.set('authorization', `Bearer ${token}`)
@@ -52,7 +52,7 @@ export const statusesApi = createApi({
         baseUrl: '/statuses',
         mode: 'cors',
         prepareHeaders: (headers, { getState }) => {
-            const token = (getState() as RootState).auth.accessToken
+            const token = localStorage.getItem("accessToken");
             // If we have a token set in state, let's assume that we should be passing it.
             if (token) {
                 headers.set('authorization', `Bearer ${token}`)
@@ -76,7 +76,7 @@ export const typesApi = createApi({
         baseUrl: '/types',
         mode: 'cors',
         prepareHeaders: (headers, { getState }) => {
-            const token = (getState() as RootState).auth.accessToken
+            const token = localStorage.getItem("accessToken");
             // If we have a token set in state, let's assume that we should be passing it.
             if (token) {
                 headers.set('authorization', `Bearer ${token}`)
